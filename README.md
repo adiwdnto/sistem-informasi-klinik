@@ -13,16 +13,9 @@ Aplikasi MVP klinik dengan frontend React, Vite, dan Tailwind; API Node.js/Expre
 
 ## Penilaian dan persiapan database
 
-Dump `db_klinik_dr_umum.sql` sudah memuat data dasar pasien, dokter, obat, resep, rekam medis, serta beberapa view. Skema awal belum menyediakan akun/role, booking, status alur kunjungan, dan transaksi pembayaran. Kolom dokter/keluhan/diagnosis pada rekam medis juga wajib diisi sejak awal, padahal kunjungan perlu dibuat sebelum triase.
+Dump sumber `db_klinik_dr_umum.sql` menyediakan data dasar pasien, dokter, obat, resep, dan rekam medis. Dump final `backend/database/db_klinik_dr_umum_final.sql` sudah berisi seluruh struktur akhir aplikasi, data contoh, akun demo, booking, kunjungan bertahap, resep, tagihan, pembayaran, stok, dan view laporan. Database yang dibuat bernama `db_klinik_dr_umum_app`, sehingga database sumber tidak ditimpa.
 
-Migrasi di `backend/database/migration.sql` menambah tabel akun, booking, tagihan, item tagihan, pembayaran, dan mutasi stok; membuat data rekam medis bertahap; memindahkan nilai resep ke tagihan; serta menghapus trigger stok lama yang dapat membuat stok negatif. Skrip migrasi mempertahankan tabel dan data contoh yang sudah ada.
-
-1. Buat cadangan database sebelum perubahan.
-2. Impor `db_klinik_dr_umum.sql` ke MySQL.
-3. Jalankan `backend/database/migration.sql` satu kali pada database hasil impor.
-4. Salin data contoh tetap memakai data pasien, dokter, obat, resep, dan kunjungan dari dump. Akun akses contoh dibuat dengan perintah `npm run seed` di backend.
-
-Migrasi ditujukan untuk dump awal tersebut dan dijalankan satu kali; jangan jalankan berulang kali karena ada perubahan kolom dan pemindahan data.
+Untuk menyiapkan database, impor **hanya** `backend/database/db_klinik_dr_umum_final.sql` satu kali ke MySQL. Tidak perlu mengimpor dump sumber, menjalankan skrip perubahan skema, atau menjalankan perintah seed. Konfigurasi `DB_NAME` pada `backend/.env` harus bernilai `db_klinik_dr_umum_app`. Jangan impor ulang ke database yang sudah berisi aplikasi; buat database kosong baru jika ingin mengulang penyiapan.
 
 ## Menjalankan backend
 
@@ -32,7 +25,6 @@ Di terminal pertama:
 cd backend
 Copy-Item .env.example .env
 npm install
-npm run seed
 npm run dev
 ```
 
